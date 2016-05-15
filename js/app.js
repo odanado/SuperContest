@@ -54699,7 +54699,7 @@ $(function () {
     $('input#submit').on('click', function () {
         var name = $('input#name').val();
         name = toId('pokemon', name);
-        if (name == "null") {
+        if (name == null) {
             alert("\"" + $('input#name').val() + "\" が見つかりません");
         }
 
