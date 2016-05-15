@@ -54674,7 +54674,9 @@ $(function() {
     $('input#submit').on('click', function () {
         name = $('input#name').val();
         name = toId('pokemon', name);
-        if (name == "null") return;
+        if (name == "null") {
+            alert("\"" + $('input#name').val() + "\" が見つかりません");
+        }
         
         learnset = leransets[name].learnset;
         moves = []
