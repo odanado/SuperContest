@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 "use strict";
 
-var dictionary = {
+exports.dictionary = {
     "ability": {
         "adaptability": "てきおうりょく",
         "aftermath": "ゆうばく",
@@ -2013,9 +2013,30 @@ var dictionary = {
     }
 };
 
-exports.dictionary = dictionary;
-
 },{}],2:[function(require,module,exports){
+"use strict";
+
+function makeArray(dict) {
+    var ret = [];
+    for (var key in dict) {
+        if (dict.hasOwnProperty(key)) {
+            ret.push(dict[key]);
+        }
+    }return ret;
+}
+
+$(document).ready(function () {
+    var dict = require("./dictionary.js").dictionary;
+    $("input#name").autocomplete({
+        source: makeArray(require("./dictionary.js").dictionary["pokemon"]),
+        messages: {
+            noResults: '',
+            results: function results() {}
+        }
+    });
+});
+
+},{"./dictionary.js":1}],3:[function(require,module,exports){
 'use strict';
 
 exports.BattleLearnsets = {
@@ -54659,7 +54680,7 @@ exports.BattleLearnsets = {
 		} }
 };
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 "use strict";
 
 var pokedex = require("./pokedex.js").BattlePokedex;
@@ -54711,7 +54732,7 @@ $(function () {
     });
 });
 
-},{"./learnsets.js":2,"./moves.js":4,"./pokedex.js":5,"./rulesets.js":6,"./super_contest.js":7,"./translation.js":8}],4:[function(require,module,exports){
+},{"./learnsets.js":3,"./moves.js":5,"./pokedex.js":6,"./rulesets.js":7,"./super_contest.js":8,"./translation.js":9}],5:[function(require,module,exports){
 /*
 
 List of flags and their descriptions:
@@ -71115,7 +71136,7 @@ exports.BattleMovedex = {
 	}
 };
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
 exports.BattlePokedex = {
@@ -82442,7 +82463,7 @@ exports.BattlePokedex = {
 	}
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // Note: These are the rules that formats use
 // The list of formats is stored in config/formats.js
 
@@ -83060,7 +83081,7 @@ exports.BattleFormats = {
 	}
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 exports.SuperContest = {
@@ -86146,7 +86167,7 @@ exports.SuperContest = {
     }
 };
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict";
 
 function toJa(category, id) {
@@ -86171,4 +86192,4 @@ function toId(category, name) {
 exports.toJa = toJa;
 exports.toId = toId;
 
-},{"./dictionary.js":1}]},{},[3,1,8]);
+},{"./dictionary.js":1}]},{},[4,1,9,2]);
