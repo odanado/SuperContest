@@ -54712,6 +54712,9 @@ $(function () {
         if (name == null) {
             alert("\"" + $('input#name').val() + "\" が見つかりません");
         }
+        if (pokedex[name].baseSpecies != null) {
+            name = pokedex[name].baseSpecies.toLowerCase().replace(/[^a-z0-9]+/g, '');
+        }
 
         var learnset = leransets[name].learnset;
         var moves = [];
