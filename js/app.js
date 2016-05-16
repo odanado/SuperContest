@@ -54692,6 +54692,16 @@ var toJa = require("./translation.js").toJa;
 var superContest = require("./super_contest.js").SuperContest;
 
 $(function () {
+    // 卵技を追加する
+    function addEggMoves(name, moves) {
+        while (pokedex[name].prevo != null) {
+            name = pokedex[name].prevo;
+        }
+        var learnset = leransets[name].learnset;
+        for (var learn in learnset) {
+            moves.push(toJa('move', learn));
+        }
+    }
     function validCategory(category) {
         var tag = "input#" + category;
         return $(tag).prop('checked');
@@ -54706,19 +54716,26 @@ $(function () {
         var learnset = leransets[name].learnset;
         var moves = [];
         for (var learn in learnset) {
-            moves.push([toJa('move', learn)]);
+            moves.push(toJa('move', learn));
         }
+        addEggMoves(name, moves);
 
         moves.sort(function (a, b) {
-            if (a[0] < b[0]) return -1;
-            if (a[0] > b[0]) return 1;
+            if (a < b) return -1;
+            if (a > b) return 1;
             return 0;
         });
+
+        // 重複している技を削除する
+        moves = moves.filter(function (element, index, self) {
+            return self.indexOf(element) === index;
+        });
+
         $("table#moves tbody").html("");
         moves.forEach(function (move) {
-            var id = toId('move', move[0]);
+            var id = toId('move', move);
             var row = "<tr>";
-            row += "<td>" + move[0] + "</td>";
+            row += "<td>" + move + "</td>";
             row += "<td>" + toJa('superContest', superContest[id].category) + "</td>";
 
             // row += "<td>" + toJa('type', movedex[id].type) + "</td>";
